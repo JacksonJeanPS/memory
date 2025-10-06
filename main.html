@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/0/827.png" type="image/x-icon">
+
+<title>Nosso canto</title>
+
+<style>
+/* ===== VÍDEO DE FUNDO ===== */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+.video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ===== CONTEÚDO ===== */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+/* ===== BOTÃO ===== */
+.meu-botao {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 20px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    transition: all 0.3s;
+    animation: pulse 1.5s infinite;
+}
+
+.meu-botao:hover {
+    background: rgba(255,255,255,0.2);
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+/* ===== PULSO ===== */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- VÍDEO DE FUNDO -->
+<div class="video-background">
+    <video autoplay muted loop playsinline>
+        <source src="back-mobile.mp4" type="video/mp4" media="(max-width: 480px)">
+        <source src="back-desktop.mp4" type="video/mp4" media="(min-width: 481px)">
+        Seu navegador não suporta vídeo.
+    </video>
+</div>
+
+<!-- CONTEÚDO -->
+<div class="container">
+    <a href="home.html" class="meu-botao">
+        <i class="fa fa-heart" aria-hidden="true"></i> Clique
+    </a>
+</div>
+
+</body>
+</html>
