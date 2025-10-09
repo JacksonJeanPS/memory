@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>Nosso amor e canto</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/0/827.png" type="image/x-icon">
-
-<title>Nosso canto</title>
 
 <style>
 /* ===== VÍDEO DE FUNDO ===== */
@@ -27,22 +24,36 @@
     object-fit: cover;
 }
 
-/* ===== CONTEÚDO ===== */
-body, html {
+/* ===== GLOBAL ===== */
+body {
     margin: 0;
-    padding: 0;
     font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    min-height: 100vh;
+    padding: 0;
+}
+
+/* ===== SPLASH SCREEN ===== */
+#splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
+    background: rgba(0,0,0,0.7);
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.5s ease;
 }
-
-.container {
-    position: relative;
-    z-index: 1;
-    text-align: center;
+#splash.hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* ===== BOTÃO ===== */
@@ -58,30 +69,149 @@ body, html {
     box-shadow: 0 0 20px rgba(0,0,0,0.3);
     transition: all 0.3s;
     animation: pulse 1.5s infinite;
+    cursor: pointer;
 }
-
 .meu-botao:hover {
     background: rgba(255,255,255,0.2);
     box-shadow: 0 0 30px rgba(0,0,0,0.5);
 }
-
-/* ===== PULSO ===== */
 @keyframes pulse {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    }
-    50% {
-        transform: scale(1.05);
-        box-shadow: 0 0 30px rgba(0,0,0,0.5);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    }
+    0% { transform: scale(1); box-shadow: 0 0 20px rgba(0,0,0,0.3); }
+    50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+    100% { transform: scale(1); box-shadow: 0 0 20px rgba(0,0,0,0.3); }
+}
+
+/* ===== CONTEÚDO PRINCIPAL ===== */
+#main-content {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* ===== PLAYER ===== */
+.player {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px);
+    padding: 20px 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    text-align: center;
+    width: 340px;
+}
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+button {
+    background-color: #1db954;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background-color 0.2s;
+}
+button:hover {
+    background-color: #1ed760;
+}
+.progress {
+    width: 100%;
+    height: 6px;
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 3px;
+    margin-top: 15px;
+    position: relative;
+    cursor: pointer;
+}
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #1db954;
+}
+.time {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #ddd;
+}
+
+/* ===== CARROSSEL ===== */
+.carousel-section {
+    width: 70%;
+    max-width: 370px;
+    text-align: center;
+}
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    cursor: pointer;
+}
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+.carousel-track img {
+    min-width: 100%;
+    pointer-events: none;
+}
+.dots {
+    text-align: center;
+    margin-top: 10px;
+}
+.dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    cursor: pointer;
+}
+.dot.active {
+    background-color: #1ed760;
+}
+
+/* ===== TEXTO E CONTADOR ===== */
+.amor-text, .amor-text-p {
+    text-align: center;
+    color: #fff;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    line-height: 1.5;
+}
+.amor-text { font-size: 28px; }
+.amor-text-p { font-size: 20px; max-width: 600px; margin: 0 auto; }
+.contador { font-size: 24px; margin-top: 10px; color: #1ed760; }
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 480px) {
+    .player { width: 90%; padding: 15px 20px; box-shadow: 0 0 15px rgba(0,0,0,0.3); }
+    .controls button { width: 40px; height: 40px; font-size: 16px; }
+    .progress { height: 4px; width: 95%; }
+    .time { font-size: 12px; }
+    .amor-text-p { font-size: 14px; padding: 15px 20px; }
+    .amor-text { font-size: 20px; padding: 15px 20px; }
+    .contador { font-size: 20px; }
 }
 </style>
 </head>
+
 <body>
 
 <!-- VÍDEO DE FUNDO -->
@@ -93,12 +223,215 @@ body, html {
     </video>
 </div>
 
-<!-- CONTEÚDO -->
-<div class="container">
-    <a href="home.html" class="meu-botao">
-        <i class="fa fa-heart" aria-hidden="true"></i> Clique
+<!-- SPLASH SCREEN -->
+<div id="splash">
+    <a class="meu-botao" id="start-btn">
+        <i class="fa fa-heart"></i> Clique
     </a>
 </div>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<div id="main-content">
+    <!-- PLAYER -->
+    <section>
+        <div class="player">
+            <h2>🎵 O Nosso som </h2>
+            <div class="controls">
+                <button id="restart">⏮</button>
+                <button id="play">▶</button>
+                <button id="pause">⏸</button>
+                <button id="next">⏭</button>
+            </div>
+            <div class="progress" id="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="time">
+                <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <audio id="audio" preload="metadata"></audio>
+        </div>
+    </section>
+
+    <!-- CARROSSEL -->
+    <section class="carousel-section">
+        <div class="carousel-container">
+            <div class="carousel-track">
+                <img src="imagens/foto1.jpg" alt="Foto 1">
+                <img src="imagens/foto2.jpg" alt="Foto 2">
+                <img src="imagens/foto3.jpg" alt="Foto 3">
+                <img src="imagens/foto4.jpg" alt="Foto 4">
+            </div>
+        </div>
+        <div class="dots"></div>
+    </section>
+
+    <!-- CONTADOR -->
+    <section class="amor-text">
+        💖 Eu te amo há:
+        <div class="contador" id="contador"></div>
+    </section>
+
+    <!-- TEXTO ANIMADO -->
+    <section class="amor-text-p" id="amor-text-p"></section>
+</div>
+
+<script>
+// ===== SPLASH SCREEN =====
+const startBtn = document.getElementById('start-btn');
+const splash = document.getElementById('splash');
+const mainContent = document.getElementById('main-content');
+
+startBtn.addEventListener('click', () => {
+    splash.classList.add('hidden');
+    setTimeout(() => {
+        mainContent.style.display = 'flex';
+        mainContent.style.opacity = 1;
+        initPlayer();
+        initCarousel();
+        initContador();
+        typeWriter();
+    }, 500);
+});
+
+// ===== PLAYER =====
+const audio = document.getElementById('audio');
+const playBtn = document.getElementById('play');
+const pauseBtn = document.getElementById('pause');
+const restartBtn = document.getElementById('restart');
+const nextBtn = document.getElementById('next');
+const progressBar = document.getElementById('progress-bar');
+const progressContainer = document.getElementById('progress-container');
+const currentTimeEl = document.getElementById('current-time');
+const durationEl = document.getElementById('duration');
+
+const playlist = [
+    'musica/audio1.mp3',
+    'musica/audio2.mp3'
+];
+let currentTrack = 0;
+
+function initPlayer() {
+    loadTrack(currentTrack);
+
+    audio.addEventListener('loadedmetadata', () => {
+        durationEl.textContent = formatTime(audio.duration);
+    });
+
+    audio.addEventListener('timeupdate', () => {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = progress + '%';
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+    });
+
+    audio.addEventListener('ended', nextTrack);
+
+    playBtn.addEventListener('click', () => audio.play());
+    pauseBtn.addEventListener('click', () => audio.pause());
+    restartBtn.addEventListener('click', () => {
+        audio.currentTime = 0;
+        audio.play();
+    });
+    nextBtn.addEventListener('click', nextTrack);
+
+    progressContainer.addEventListener('click', (e) => {
+        const rect = progressContainer.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        audio.currentTime = (clickX / rect.width) * audio.duration;
+    });
+}
+
+function loadTrack(index) {
+    audio.src = playlist[index];
+    audio.load();
+    audio.currentTime = 0;
+    audio.play();
+}
+
+function nextTrack() {
+    currentTrack = (currentTrack + 1) % playlist.length;
+    loadTrack(currentTrack);
+}
+
+function formatTime(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s < 10 ? '0'+s : s}`;
+}
+
+// ===== CARROSSEL =====
+const track = document.querySelector('.carousel-track');
+const slides = Array.from(track.children);
+const dotsContainer = document.querySelector('.dots');
+let currentIndex = 0;
+
+function initCarousel() {
+    slides.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => { currentIndex = i; updateCarousel(); });
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = Array.from(document.querySelectorAll('.dot'));
+
+    document.querySelector('.carousel-container').addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateCarousel();
+    });
+
+    setInterval(() => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateCarousel();
+    }, 5000);
+
+    function updateCarousel() {
+        const width = slides[0].getBoundingClientRect().width;
+        track.style.transform = `translateX(-${currentIndex * width}px)`;
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[currentIndex].classList.add('active');
+    }
+
+    window.updateCarousel = updateCarousel; // para poder chamar de fora
+}
+
+// ===== CONTADOR =====
+const contador = document.getElementById('contador');
+const startDate = new Date('2018-09-30T00:00:00');
+
+function initContador() {
+    updateContador();
+    setInterval(updateContador, 1000);
+}
+
+function updateContador() {
+    const now = new Date();
+    let diff = now - startDate;
+    const anos = Math.floor(diff / (1000*60*60*24*365));
+    diff -= anos*(1000*60*60*24*365);
+    const dias = Math.floor(diff / (1000*60*60*24));
+    diff -= dias*(1000*60*60*24);
+    const horas = Math.floor(diff / (1000*60*60));
+    diff -= horas*(1000*60*60);
+    const minutos = Math.floor(diff / (1000*60));
+    diff -= minutos*(1000*60);
+    const segundos = Math.floor(diff / 1000);
+    contador.textContent = `${anos} anos, ${dias} dias, ${String(horas).padStart(2,'0')} horas, ${String(minutos).padStart(2,'0')} minutos, e ${String(segundos).padStart(2,'0')} segundos.`;
+}
+
+// ===== TEXTO ANIMADO =====
+const amorText = "Ter você na minha vida é como encontrar calma no meio da tempestade. Seu olhar me tranquiliza e transforma meus dias mais difíceis em momentos de paz. Cada sorriso seu ilumina meu caminho e cada gesto seu aquece meu coração de uma forma que palavras jamais poderiam expressar completamente. Com você, aprendi que o amor é feito de cumplicidade, respeito e pequenos detalhes que se tornam eternos. Obrigado por ser meu porto seguro, minha alegria constante e a razão de eu acreditar que, mesmo em meio ao caos, existe beleza e serenidade quando estamos juntos.";
+const amorTextP = document.getElementById('amor-text-p');
+let i = 0;
+
+function typeWriter() {
+    if (i < amorText.length) {
+        amorTextP.innerHTML += amorText.charAt(i);
+        i++;
+        setTimeout(typeWriter, 30);
+    }
+}
+</script>
 
 </body>
 </html>
